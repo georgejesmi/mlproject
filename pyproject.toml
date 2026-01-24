@@ -1,0 +1,19 @@
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mlproject"
+version = "1.0.0"
+authors = [
+    {name= "Jesmi George", email="jesmigeorge04@gmail.com"},
+]
+description = "E2E ML Application Project"
+readme = "README.md"
+requires-python = ">=3.11"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
