@@ -20,7 +20,7 @@ class DataIngestion:
     def __init__(self):
         self.ingestion_config = DataIngestionConfig()
 
-    def initiate_data_ingestion(self):
+    def perform_data_ingestion(self):
         logger.info("Initiating data ingestion...")
         try:
             df = pd.read_csv("../../notebooks/data/stud.csv")
@@ -46,4 +46,3 @@ class DataIngestion:
             return self.ingestion_config.train_data_path, self.ingestion_config.test_data_path
         except FileNotFoundError as e:
             raise CustomException(e, sys)
-
