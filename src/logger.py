@@ -8,9 +8,9 @@ logger.setLevel(logging.DEBUG)
 formatter = logging.Formatter('{asctime} - {filename} - {lineno} -  {levelname} - {message}', style='{', datefmt='%Y-%m-%d %H:%M')
 
 LOG_FOLDER = f"{datetime.date.today()}"
-log_dir = os.path.join(os.getcwd(), "logs", LOG_FOLDER)
+log_dir = os.path.join(os.path.dirname(__file__), "..", "logs", LOG_FOLDER)
 os.makedirs(log_dir, exist_ok=True)
-LOG_FILE_PATH = os.path.join(log_dir, f"app.log")
+LOG_FILE_PATH = os.path.join(log_dir, f"app-{datetime.datetime.now().strftime('%Y-%m-%d_%H-%M-%S')}.log")
 
 # sends logs to the console
 console_handler = logging.StreamHandler(sys.stdout)
