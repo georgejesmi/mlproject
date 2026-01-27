@@ -3,6 +3,7 @@ import os
 from src.logger import logger
 from src.exception import CustomException
 from src.utils import save_object
+from src.config.paths import ARTIFACTS_MODELS_PATH
 
 import pandas as pd
 import numpy as np
@@ -14,7 +15,7 @@ from dataclasses import dataclass
 
 @dataclass
 class DataTransformationConfig:
-    preprocessor_obj_file_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "..", "artifacts", "preprocessor.pkl"))
+    preprocessor_obj_file_path = os.path.join(ARTIFACTS_MODELS_PATH, "preprocessor_obj.pkl")
 
 class DataTransformation:
     def __init__(self):
@@ -81,9 +82,8 @@ class DataTransformation:
                 obj = preprocessor_pipeline_obj
             )
 
-            return train_arr, test_arr, self.data_transformation_config.preprocessor_obj_file_path
+            return train_arr, test_arr
 
         except Exception as e:
             logger.error(e)
             raise CustomException(e, sys)
-
