@@ -6,9 +6,9 @@ from sklearn.model_selection import train_test_split
 from src.logger import logger
 from src.exception import CustomException
 from dataclasses import dataclass
-from src.config.paths import ARTIFACTS_DATA_PATH
-from src.components.data_transformation import DataTransformation
-from src.components.model_trainer import ModelTrainer
+from src.config.paths import ARTIFACTS_DATA_PATH, DATA_PATH
+# from src.components.data_transformation import DataTransformation
+# from src.components.model_trainer import ModelTrainer
 
 @dataclass
 class DataIngestionConfig:
@@ -26,7 +26,7 @@ class DataIngestion:
     def perform_data_ingestion(self):
         logger.info("Initiating data ingestion...")
         try:
-            df = pd.read_csv("../../notebooks/data/stud.csv")
+            df = pd.read_csv(DATA_PATH)
             logger.info("Successfully loaded data from CSV")
 
             # os.makedirs(os.path.dirname(self.ingestion_config.raw_data_path),exist_ok=True)
@@ -50,12 +50,12 @@ class DataIngestion:
         except FileNotFoundError as e:
             raise CustomException(e, sys)
 
-if __name__ == "__main__":
-    data_ingestion = DataIngestion()
-    train_data_path, test_data_path = data_ingestion.perform_data_ingestion()
-
-    data_transformation = DataTransformation()
-    train_arr, test_arr = data_transformation.perform_data_transformation(train_data_path, test_data_path)
-
-    model_trainer = ModelTrainer()
-    model_trainer.perform_model_training(train_arr, test_arr)
+# if __name__ == "__main__":
+#     data_ingestion = DataIngestion()
+#     train_data_path, test_data_path = data_ingestion.perform_data_ingestion()
+#
+#     data_transformation = DataTransformation()
+#     train_arr, test_arr = data_transformation.perform_data_transformation(train_data_path, test_data_path)
+#
+#     model_trainer = ModelTrainer()
+#     model_trainer.perform_model_training(train_arr, test_arr)

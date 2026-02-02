@@ -1,0 +1,121 @@
+# Production-Grade Configuration File
+# Environment: development, staging, production
+
+environment: development
+
+# Data Configuration
+data:
+  raw_data_source: "data/raw/stud.csv"
+  train_test_split_ratio: 0.2
+  random_state: 42
+  validation_split: 0.1
+
+# Model Configuration
+model:
+  min_r2_threshold: 0.7
+  max_training_time_seconds: 3600
+  cross_validation_folds: 5
+  early_stopping_rounds: 50
+
+# Model Registry
+model_registry:
+  enabled: true
+  backend: "mlflow"
+  tracking_uri: "http://localhost:5000"
+  experiment_name: "student_performance_prediction"
+
+# Hyperparameter Tuning
+hyperparameter_tuning:
+  enabled: true
+  method: "grid_search" # grid_search, random_search, bayesian
+  n_trials: 100
+  timeout_seconds: 7200
+
+# Logging Configuration
+logging:
+  level: "INFO" # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "json" # json or text
+  log_to_file: true
+  log_to_console: true
+  rotation: "daily"
+  retention_days: 30
+  include_correlation_id: true
+
+# Monitoring
+monitoring:
+  enabled: true
+  metrics_backend: "prometheus"
+  metrics_port: 9090
+  health_check_interval_seconds: 60
+  data_drift_detection: true
+  model_performance_tracking: true
+
+# API Configuration
+api:
+  host: "0.0.0.0"
+  port: 8000
+  workers: 4
+  timeout_seconds: 30
+  max_request_size_mb: 10
+  rate_limit_per_minute: 100
+  enable_cors: true
+  allowed_origins: ["http://localhost:3000"]
+
+# Security
+security:
+  enable_authentication: true
+  api_key_header: "X-API-Key"
+  input_validation: true
+  sanitize_inputs: true
+  max_batch_size: 1000
+
+# Performance
+performance:
+  enable_caching: true
+  cache_ttl_seconds: 3600
+  batch_prediction_enabled: true
+  async_processing: true
+  model_lazy_loading: true
+
+# Paths (relative to project root)
+paths:
+  artifacts_dir: "artifacts"
+  logs_dir: "logs"
+  models_dir: "models"
+  data_dir: "data"
+  cache_dir: "cache"
+
+# Feature Engineering
+feature_engineering:
+  version: "1.0.0"
+  numerical_features: ["reading_score", "writing_score"]
+  categorical_features:
+    [
+      "gender",
+      "race_ethnicity",
+      "lunch",
+      "parental_level_of_education",
+      "test_preparation_course",
+    ]
+  scaling_method: "standard" # standard, minmax, robust
+  encoding_method: "onehot" # onehot, label, target
+
+# Data Quality Checks
+data_quality:
+  check_missing_values: true
+  check_duplicates: true
+  check_outliers: true
+  check_schema: true
+  max_missing_percentage: 5.0
+  outlier_method: "iqr" # iqr, zscore
+
+# Alerts
+alerts:
+  enabled: true
+  email_notifications: true
+  slack_webhook_url: "${SLACK_WEBHOOK_URL}"
+  alert_on_model_degradation: true
+  alert_on_data_drift: true
+  alert_on_high_error_rate: true
+  error_rate_threshold: 0.05
+# Made with Bob

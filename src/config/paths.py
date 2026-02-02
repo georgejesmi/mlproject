@@ -7,13 +7,16 @@ RUN_ID = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
 # project root path
 PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__),"..", ".."))
 
+# Original Data Path
+DATA_PATH = os.path.join(PROJECT_ROOT, "notebooks", "data/stud.csv")
+
 # projects artifacts and logs path
-ARTIFACTS_DIR = os.path.join(PROJECT_ROOT, "artifacts", f"run_{RUN_ID}")
+ARTIFACTS_DIR = os.path.join(PROJECT_ROOT, "artifacts")
 LOGS_DIR = os.path.join(PROJECT_ROOT, "logs")
 
 # artifacts sub-folder
-ARTIFACTS_DATA_PATH = os.path.join(ARTIFACTS_DIR, "data")
-ARTIFACTS_MODELS_PATH = os.path.join(ARTIFACTS_DIR, "models")
+ARTIFACTS_DATA_PATH = os.path.join(ARTIFACTS_DIR, f"run_{RUN_ID}", "data")
+ARTIFACTS_MODELS_PATH = os.path.join(ARTIFACTS_DIR, f"run_{RUN_ID}", "models")
 
 for path in [ARTIFACTS_DIR, LOGS_DIR, ARTIFACTS_DATA_PATH, ARTIFACTS_MODELS_PATH]:
     os.makedirs(path, exist_ok=True)

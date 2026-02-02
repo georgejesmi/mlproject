@@ -48,14 +48,47 @@ class ModelTrainer:
                 "CatBoost": CatBoostRegressor(verbose=False),
                 "XGBoost": XGBRegressor()
             }
-            model_scores = evaluate_model_performance(x_train, y_train, x_test, y_test, models)
+            hyper_params = {
+                "Decision Tree": {
+                    "max_depth": [3, 4, 5],
+                    "criterion": ["squared_error", "absolute_error"]
+                },
+                "Random Forest": {
+                    "max_depth": [3, 4, 5],
+                    "n_estimators": [10, 20, 30],
+                },
+                "Gradient Boosting": {
+                    "n_estimators": [10, 20, 30],
+                    "learning_rate": [0.1, 0.01, 0.5]
+                },
+                "AdaBoost": {
+                     "n_estimators": [10, 20, 30],
+                    "learning_rate": [0.1, 0.01, 0.5]
+                },
+                "Linear Regression": {},
+                "Ridge": {},
+                "Lasso": {},
+                "ElasticNet": {},
+                "K Nearest Regressor": {},
+                "Support Vector Regressor": {},
+                "XGBoost": {
+                    "n_estimators": [10, 20, 30],
+                    "learning_rate": [0.1, 0.01, 0.5]
+                },
+                "CatBoost": {
+                    'depth': [6, 8, 10],
+                    'learning_rate': [0.01, 0.05, 0.1]
+                }
+            }
+            model_scores, trained_models = evaluate_model_performance(x_train, y_train, x_test, y_test, models, hyper_params)
             model_scores.sort_values(by=["r2_score"], ascending=False, inplace=True)
             logger.info(model_scores)
             logger.info(f"Best Model : {model_scores.loc[0, 'model_name']}, R2 Score: {model_scores.loc[0, 'r2_score']}")
             if model_scores.loc[0, 'r2_score'] < 0.05:
                 raise CustomException("No good model found")
-            best_model = model_scores.loc[0, 'model_name']
-            save_object(self.model_trainer_config.model_path, models[best_model])
+            best_model_name = model_scores.loc[0, 'model_name']
+            best_model = trained_models[best_model_name]
+            save_object(self.model_trainer_config.model_path, best_model)
         except Exception as e:
             logger.error(e)
             raise CustomException(e, sys)
