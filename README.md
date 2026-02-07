@@ -8,3 +8,4 @@ app_port: 7860
 pinned: false
 ---
 
+https://huggingface.co/spaces/georgejesmi/Student_Score_Prediction
