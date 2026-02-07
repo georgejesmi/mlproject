@@ -43,7 +43,7 @@ MarkupSafe==2.1.5
 matplotlib==3.10.8
 MouseInfo==0.1.3
 mypy_extensions==1.1.0
-numpy==2.3.5
+numpy==1.26.4
 oauthlib==3.2.2
 openapi-schema-validator==0.4.4
 openapi-spec-validator==0.5.7
