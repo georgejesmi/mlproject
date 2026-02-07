@@ -5,7 +5,7 @@ import pandas as pd
 
 from src.logger import logger
 from src.exception import CustomException
-from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
+from sklearn.metrics import r2_score
 from sklearn.model_selection import GridSearchCV
 
 def save_object(file_path, obj):

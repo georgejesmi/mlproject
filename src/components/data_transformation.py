@@ -1,9 +1,5 @@
 import sys
 import os
-from src.logger import logger
-from src.exception import CustomException
-from src.utils import save_object
-from src.config.paths import ARTIFACTS_MODELS_PATH
 
 import pandas as pd
 import numpy as np
@@ -12,6 +8,11 @@ from sklearn.preprocessing import StandardScaler, OneHotEncoder
 from sklearn.pipeline import Pipeline
 from sklearn.compose import ColumnTransformer
 from dataclasses import dataclass
+
+from src.logger import logger
+from src.exception import CustomException
+from src.utils import save_object
+from src.config.paths import ARTIFACTS_MODELS_PATH
 
 @dataclass
 class DataTransformationConfig:

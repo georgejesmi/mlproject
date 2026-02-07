@@ -1,11 +1,6 @@
 import os
 import sys
-from src.logger import logger
-from src.exception import CustomException
-from src.utils import evaluate_model_performance, save_object
-from src.config.paths import ARTIFACTS_MODELS_PATH
 from dataclasses import dataclass
-
 from sklearn.linear_model import LinearRegression, Ridge, Lasso, ElasticNet
 from sklearn.neighbors import KNeighborsRegressor
 from sklearn.svm import SVR
@@ -13,6 +8,11 @@ from sklearn.tree import DecisionTreeRegressor
 from sklearn.ensemble import RandomForestRegressor, AdaBoostRegressor, GradientBoostingRegressor
 from xgboost import XGBRegressor
 from catboost import CatBoostRegressor
+
+from src.logger import logger
+from src.exception import CustomException
+from src.utils import evaluate_model_performance, save_object
+from src.config.paths import ARTIFACTS_MODELS_PATH
 
 
 @dataclass

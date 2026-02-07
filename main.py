@@ -1,7 +1,6 @@
 from flask import Flask, render_template, request
-from src.components.data_ingestion import DataIngestion
-from src.components.data_transformation import DataTransformation
-from src.components.model_trainer import ModelTrainer
+
+from src.pipeline.train_pipeline import TrainingPipeline
 from src.pipeline.predict_pipeline import StudentClass, PredictPipeline
 from src.logger import logger
 
@@ -33,12 +32,6 @@ def predict_datapoint():
         return render_template('home.html', results=results[0])
 
 if __name__ == '__main__':
-    data_ingestion = DataIngestion()
-    train_data_path, test_data_path = data_ingestion.perform_data_ingestion()
-
-    data_transformation = DataTransformation()
-    train_arr, test_arr = data_transformation.perform_data_transformation(train_data_path, test_data_path)
-
-    model_trainer = ModelTrainer()
-    model_trainer.perform_model_training(train_arr, test_arr)
+    train_pipeline = TrainingPipeline()
+    train_pipeline.start_training()
     app.run(host='0.0.0.0', port=8081)
