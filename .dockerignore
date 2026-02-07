@@ -1,0 +1,8 @@
+.git
+notebook/
+*.ipynb
+__pycache__
+venv/
+.env
+logs
+*.log

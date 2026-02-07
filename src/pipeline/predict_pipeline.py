@@ -1,6 +1,8 @@
+import pickle
 import sys
 import os
 import pandas as pd
+import pickle
 
 from src.exception import CustomException
 from src.utils import load_object
@@ -10,12 +12,17 @@ class PredictPipeline:
     def __init__(self):
         pass
 
+    def model_loader(self, model_path):
+        with open(model_path, "rb") as f:
+            model = pickle.load(f)
+        return model
+
     def predict(self, df):
         try:
             preprocessor_path = os.path.join(ARTIFACTS_MODELS_PATH, 'preprocessor_obj.pkl')
             model_path = os.path.join(ARTIFACTS_MODELS_PATH, 'model.pkl')
             preprocessor = load_object(preprocessor_path)
-            model = load_object(model_path)
+            model = self.model_loader(model_path)
             data_scaled = preprocessor.transform(df)
             prediction = model.predict(data_scaled)
             return prediction
